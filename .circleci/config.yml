@@ -23,6 +23,7 @@ jobs:
 #          docker-password: $DOCKER_PASSWORD
       - docker/build:
           image: $IMAGE_NAME
+          tag: latest
 #          lint-dockerfile: true
 #          treat-warnings-as-errors: true
       - docker/push:
