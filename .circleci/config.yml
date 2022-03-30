@@ -1,0 +1,121 @@
+version: 2.1
+
+orbs: 
+  python: circleci/python@2.0.3
+  snyk: snyk/snyk@1.1.2
+  docker: circleci/docker@2.0.3
+
+jobs:
+  build:
+    docker:
+      - image: cimg/python:3.10.0
+    resource_class: medium
+    environment:
+      IMAGE_NAME: python-demo
+    steps:
+      - checkout
+      - python/install-packages:
+          pip-dependency-file: requirements.txt
+          pkg-manager: pip
+          pypi-cache: true
+      - docker/check:
+          docker-username: $DOCKER_LOGIN
+          docker-password: $DOCKER_PASSWORD
+      - docker/build:
+          image: $IMAGE_NAME
+          lint-dockerfile: true
+          treat-warnings-as-errors: true
+      - docker/push:
+          digest-path: /tmp/digest.txt
+          image: $IMAGE_NAME
+      - run:
+          command: |
+            echo "Digest is: $(</tmp/digest.txt)"
+      - run: docker build --tag $IMAGE_NAME .
+      - snyk/scan:
+          docker-image-name: $IMAGE_NAME
+
+  test:
+    working_directory: ~/circleci-demo
+    docker:
+      - image: cimg/node
+    resource_class: small
+    steps:
+      - checkout
+      - run: mkdir -p ./tmp/test-results
+      - run: npm install jest --save-dev
+      - run: npm test
+  
+  deploy-heroku:
+    working_directory: ~/circleci-demo
+    docker:
+      - image: cimg/base:2021.04
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: Deploy to Heroku
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git heroku-deploy:main
+  deploy-in-parallel:
+    working_directory: ~/circleci-demo
+    docker:
+      - image: cimg/base:2021.04
+    resource_class: small
+    steps:
+      - checkout
+      - run: echo "This is running in parallel with the deploy"
+  deploy-homelab:
+    working_directory: ~/circleci-demo
+    docker:
+      - image: cimg/base:2021.04
+    resource_class: small
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "30:4f:cd:85:dd:7b:f1:29:b6:bf:fb:71:a3:bc:6b:f7"
+      - run:
+          name: Deploy to Homelab over SSH 
+          command: |
+            ssh -p $SSH_PORT -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "git -C /var/www/circleci/circlecinterview pull origin homelab-deploy"
+workflows:
+  build-test-deploy:
+    jobs:
+      - build
+      - test
+      - hold:
+          type: approval
+          requires: 
+           - build
+           - test
+          filters:
+            branches:
+              only: 
+               - heroku-deploy
+               - homelab-deploy
+      - deploy-heroku:
+          requires:
+            - build
+            - test
+            - hold
+          filters:
+            branches:
+              only: heroku-deploy
+      - deploy-homelab:
+          requires:
+            - build
+            - test
+            - hold
+          filters:
+            branches:
+              only: homelab-deploy
+      - deploy-in-parallel:
+          requires:
+            - build
+            - test
+            - hold
+          filters:
+            branches:
+              only: 
+               - heroku-deploy
+               - homelab-deploy
