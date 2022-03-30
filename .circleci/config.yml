@@ -38,7 +38,7 @@ jobs:
   test:
     working_directory: ~/circleci-demo
     docker:
-      - image: cimg/node
+      - image: cimg/node:latest
     resource_class: small
     steps:
       - checkout
