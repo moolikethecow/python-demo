@@ -24,7 +24,7 @@ jobs:
       - docker/build:
           image: $IMAGE_NAME
           lint-dockerfile: true
-          treat-warnings-as-errors: true
+#          treat-warnings-as-errors: true
       - docker/push:
           digest-path: /tmp/digest.txt
           image: $IMAGE_NAME
