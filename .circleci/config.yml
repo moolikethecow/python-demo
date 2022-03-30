@@ -23,7 +23,7 @@ jobs:
 #          docker-password: $DOCKER_PASSWORD
       - docker/build:
           image: $IMAGE_NAME
-          lint-dockerfile: true
+#          lint-dockerfile: true
 #          treat-warnings-as-errors: true
       - docker/push:
           digest-path: /tmp/digest.txt
