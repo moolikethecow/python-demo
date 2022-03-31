@@ -14,17 +14,17 @@ jobs:
       IMAGE_NAME: python-demo
       IMAGE_TAG: 0.0.1
     steps:
+      - setup_remote_docker
       - checkout
       - python/install-packages:
           pip-dependency-file: requirements.txt
           pkg-manager: pip
           pypi-cache: true
-      - docker/install-docker-tools
       - docker/check
 #          docker-username: $DOCKER_LOGIN
 #          docker-password: $DOCKER_PASSWORD
       - docker/build:
-          image: $IMAGE_NAME
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
           tag: $IMAGE_TAG
 #          lint-dockerfile: true
 #          treat-warnings-as-errors: true
