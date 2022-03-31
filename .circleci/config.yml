@@ -29,7 +29,7 @@ jobs:
 #          treat-warnings-as-errors: true
       - docker/push:
           digest-path: /tmp/digest.txt
-          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$IMAGE_TAG
       - run:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
