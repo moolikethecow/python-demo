@@ -12,6 +12,7 @@ jobs:
     resource_class: medium
     environment:
       IMAGE_NAME: python-demo
+      IMAGE_TAG: 0.0.1
     steps:
       - checkout
       - python/install-packages:
@@ -23,7 +24,7 @@ jobs:
 #          docker-password: $DOCKER_PASSWORD
       - docker/build:
           image: $IMAGE_NAME
-          tag: latest
+          tag: $IMAGE_TAG
 #          lint-dockerfile: true
 #          treat-warnings-as-errors: true
       - docker/push:
@@ -32,7 +33,6 @@ jobs:
       - run:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
-      - run: docker build --tag $IMAGE_NAME .
       - snyk/scan:
           docker-image-name: $IMAGE_NAME
 
