@@ -27,6 +27,8 @@ jobs:
           tag: $IMAGE_TAG
 #          lint-dockerfile: true
 #          treat-warnings-as-errors: true
+      - snyk/scan:
+          docker-image-name: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$IMAGE_TAG
       - docker/push:
           digest-path: /tmp/digest.txt
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
@@ -34,9 +36,7 @@ jobs:
       - run:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
-      - snyk/scan:
-          docker-image-name: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-
+      
   test:
     working_directory: ~/circleci-demo
     docker:
