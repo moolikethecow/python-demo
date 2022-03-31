@@ -1,16 +1,22 @@
 # syntax=docker/dockerfile:1
-FROM python:3.10.0a7-slim-buster
+FROM python:3.10-alpine
 
-RUN useradd -ms /bin/bash moo
-USER moo
-WORKDIR /home/moo/
-ENV PATH="/home/moo/.local/bin:${PATH}"
+ARG USER=demo
+ARG GROUP=demo
+ARG UID=1000
+ARG GID=1000
+ARG PORT=8000
 
-RUN pip3 install --upgrade pip
+ENV PORT=${PORT}
 
-COPY --chown=moo:moo requirements.txt requirements.txt
-RUN pip3 install --user -r requirements.txt
+RUN apk -U upgrade
+RUN addgroup --gid ${GID} ${GROUP} \
+  && adduser --disabled-password --no-create-home --home "/demo" --uid ${UID} --ingroup ${GROUP} ${USER} \
+  && chown -R ${UID}:${GID} /demo
+USER ${USER}
+WORKDIR /demo
 
-COPY --chown=moo:moo . .
+COPY --chown=${USER}:${GROUP} . .
+RUN pip3 install --upgrade pip && pip3 install --user -r requirements.txt && rm -rf requirements.txt
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD [ "python3", "-m" , "flask", "run"]

@@ -7,18 +7,14 @@ orbs:
 
 jobs:
   build:
-    docker:
-      - image: cimg/python:3.10.0
+    machine:
+      image: ubuntu-2004:current
+      docker_layer_caching: true
     resource_class: medium
     environment:
       IMAGE_TAG: 0.0.1
     steps:
-      - setup_remote_docker
       - checkout
-      - python/install-packages:
-          pip-dependency-file: requirements.txt
-          pkg-manager: pip
-          pypi-cache: true
       - docker/check
 #          docker-username: $DOCKER_LOGIN
 #          docker-password: $DOCKER_PASSWORD
