@@ -11,7 +11,6 @@ jobs:
       - image: cimg/python:3.10.0
     resource_class: medium
     environment:
-      IMAGE_NAME: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       IMAGE_TAG: 0.0.1
     steps:
       - setup_remote_docker
@@ -24,18 +23,18 @@ jobs:
 #          docker-username: $DOCKER_LOGIN
 #          docker-password: $DOCKER_PASSWORD
       - docker/build:
-          image: $IMAGE_NAME
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
           tag: $IMAGE_TAG
 #          lint-dockerfile: true
 #          treat-warnings-as-errors: true
       - docker/push:
           digest-path: /tmp/digest.txt
-          image: $IMAGE_NAME
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - run:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
       - snyk/scan:
-          docker-image-name: $IMAGE_NAME
+          docker-image-name: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
 
   test:
     working_directory: ~/circleci-demo
