@@ -3,8 +3,8 @@ FROM python:3.10.0a7-slim-buster
 
 RUN useradd -ms /bin/bash moo
 USER moo
-WORKDIR /home/moo/python-demo
-ENV PATH="/home/moo/python-demo/.local/bin:${PATH}"
+WORKDIR /home/moo/
+ENV PATH="/home/moo/.local/bin:${PATH}"
 
 RUN pip3 install --upgrade pip
 
