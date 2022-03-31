@@ -11,7 +11,7 @@ jobs:
       - image: cimg/python:3.10.0
     resource_class: medium
     environment:
-      IMAGE_NAME: python-demo
+      IMAGE_NAME: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       IMAGE_TAG: 0.0.1
     steps:
       - setup_remote_docker
@@ -24,7 +24,7 @@ jobs:
 #          docker-username: $DOCKER_LOGIN
 #          docker-password: $DOCKER_PASSWORD
       - docker/build:
-          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+          image: $IMAGE_NAME
           tag: $IMAGE_TAG
 #          lint-dockerfile: true
 #          treat-warnings-as-errors: true
