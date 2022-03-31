@@ -3,7 +3,7 @@ FROM python:3.10.0a7-slim-buster
 
 RUN pip3 install --upgrade pip
 
-RUN adduser -D moo
+RUN useradd -ms /bin/bash moo
 USER moo
 WORKDIR /home/moo/python-demo
 
