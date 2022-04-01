@@ -20,7 +20,7 @@ jobs:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
           tag: $IMAGE_TAG
           lint-dockerfile: true
-#          treat-warnings-as-errors: true
+          treat-warnings-as-errors: true
       - snyk/scan:
           docker-image-name: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$IMAGE_TAG
       - docker/push:
