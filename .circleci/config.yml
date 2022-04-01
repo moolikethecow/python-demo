@@ -55,6 +55,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - heroku/install
       - heroku/check-authentication
       - heroku/push-docker-image:
          app-name: moo-python-demo
@@ -82,7 +83,7 @@ jobs:
           command: |
             ssh -p $SSH_PORT -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "git -C /var/www/circleci/circlecinterview pull origin homelab-deploy"
 workflows:
-  build-test:
+  build-test-deploy:
     jobs:
       - build
       - test
