@@ -6,7 +6,6 @@ ARG GROUP=demo
 ARG UID=1000
 ARG GID=1000
 ARG PORT=8000
-
 ENV PORT=${PORT}
 
 RUN apk -U upgrade
@@ -19,4 +18,4 @@ WORKDIR /demo
 ENV PATH="/demo/.local/bin:${PATH}"
 RUN pip3 install --upgrade pip && pip3 install --user -r requirements.txt && rm -rf requirements.txt
 
-CMD [ "python3", "-m" , "flask", "run"]
+CMD [ "python3", "-m" , "app"]

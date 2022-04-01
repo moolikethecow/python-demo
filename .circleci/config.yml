@@ -4,28 +4,38 @@ orbs:
   python: circleci/python@2.0.3
   snyk: snyk/snyk@1.1.2
   docker: circleci/docker@2.0.3
+  heroku: circleci/heroku@1.2.6
 
+commands:
+  set-build-env:
+    description: "Set environment variables needed for building"
+    steps:
+      - checkout
+      - run:
+          name: Setup Build Environment Variables
+          command: |
+            echo "export VERSION=$(cat VERSION)" >> $BASH_ENV
+            source $BASH_ENV
+  
 jobs:
   build:
     machine:
       image: ubuntu-2004:current
       docker_layer_caching: true
     resource_class: medium
-    environment:
-      IMAGE_TAG: 0.0.2
     steps:
-      - checkout
+      - set-build-env
       - docker/check
       - docker/build:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-          tag: $IMAGE_TAG
+          tag: ${VERSION}
           lint-dockerfile: true
           treat-warnings-as-errors: true
       - snyk/scan:
-          docker-image-name: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$IMAGE_TAG
+          docker-image-name: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:${VERSION}
       - docker/push:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-          tag: $IMAGE_TAG
+          tag: ${VERSION}
       
   test:
     working_directory: ~/circleci-demo
@@ -45,10 +55,11 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run:
-          name: Deploy to Heroku
-          command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git heroku-deploy:main
+      - heroku/check-authentication
+      - heroku/push-docker-image:
+        - app-name: moo-python-demo
+        - tag: ${VERSION}
+
   deploy-in-parallel:
     working_directory: ~/circleci-demo
     docker:
@@ -57,6 +68,7 @@ jobs:
     steps:
       - checkout
       - run: echo "This is running in parallel with the deploy"
+  
   deploy-homelab:
     working_directory: ~/circleci-demo
     docker:
@@ -71,7 +83,7 @@ jobs:
           command: |
             ssh -p $SSH_PORT -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "git -C /var/www/circleci/circlecinterview pull origin homelab-deploy"
 workflows:
-  build-test-deploy:
+  build-test:
     jobs:
       - build
       - test
@@ -80,19 +92,13 @@ workflows:
           requires: 
            - build
            - test
-          filters:
-            branches:
-              only: 
-               - heroku-deploy
-               - homelab-deploy
+
       - deploy-heroku:
           requires:
             - build
             - test
             - hold
-          filters:
-            branches:
-              only: heroku-deploy
+ 
       - deploy-homelab:
           requires:
             - build
@@ -101,13 +107,3 @@ workflows:
           filters:
             branches:
               only: homelab-deploy
-      - deploy-in-parallel:
-          requires:
-            - build
-            - test
-            - hold
-          filters:
-            branches:
-              only: 
-               - heroku-deploy
-               - homelab-deploy
