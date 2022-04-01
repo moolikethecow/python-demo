@@ -58,8 +58,8 @@ jobs:
       - set-build-env
       - heroku/install
       - heroku/check-authentication
-      - heroku/push-docker-image:
-      - heroku/release-docker-image:
+      - heroku/push-docker-image
+      - heroku/release-docker-image
 
   deploy-in-parallel:
     working_directory: ~/circleci-demo
