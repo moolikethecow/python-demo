@@ -16,7 +16,7 @@ RUN addgroup --gid ${GID} ${GROUP} \
   && chown -R ${UID}:${GID} /demo
 USER ${USER}
 WORKDIR /demo
-ENV PATH="/home/moo/.local/bin:${PATH}"
+ENV PATH="/demo/.local/bin:${PATH}"
 RUN pip3 install --upgrade pip && pip3 install --user -r requirements.txt && rm -rf requirements.txt
 
 CMD [ "python3", "-m" , "flask", "run"]
