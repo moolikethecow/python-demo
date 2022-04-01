@@ -53,13 +53,13 @@ jobs:
     machine:
       image: ubuntu-2004:current
       docker_layer_caching: true
-    resource_class: small
+    resource_class: medium
     steps:
-      - checkout
+      - set-build-env
       - heroku/install
       - heroku/check-authentication
       - heroku/push-docker-image:
-         app-name: moo-python-demo
+      - heroku/release-docker-image:
 
   deploy-in-parallel:
     working_directory: ~/circleci-demo
