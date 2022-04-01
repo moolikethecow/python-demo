@@ -16,22 +16,16 @@ jobs:
     steps:
       - checkout
       - docker/check
-#          docker-username: $DOCKER_LOGIN
-#          docker-password: $DOCKER_PASSWORD
       - docker/build:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
           tag: $IMAGE_TAG
-#          lint-dockerfile: true
+          lint-dockerfile: true
 #          treat-warnings-as-errors: true
       - snyk/scan:
           docker-image-name: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$IMAGE_TAG
       - docker/push:
-          digest-path: /tmp/digest.txt
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
           tag: $IMAGE_TAG
-      - run:
-          command: |
-            echo "Digest is: $(</tmp/digest.txt)"
       
   test:
     working_directory: ~/circleci-demo
