@@ -57,8 +57,7 @@ jobs:
       - checkout
       - heroku/check-authentication
       - heroku/push-docker-image:
-        - app-name: moo-python-demo
-        - tag: ${VERSION}
+         app-name: moo-python-demo
 
   deploy-in-parallel:
     working_directory: ~/circleci-demo
