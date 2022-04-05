@@ -49,7 +49,7 @@ jobs:
       - run: yarn add --dev jest-junit
       - run: npm test
       - store_test_results:
-          path: test-results
+          path: ./test-results
   
   deploy-heroku:
     working_directory: ~/circleci-demo
