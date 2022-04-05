@@ -75,6 +75,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - run: sleep 50
       - run: echo "This is running in parallel with the deploy"
   
   deploy-gcp:
@@ -84,6 +85,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - run: sleep 50
       - run: echo "This is running in parallel with the deploy"
   
   deploy-homelab:
