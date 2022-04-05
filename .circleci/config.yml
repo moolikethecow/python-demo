@@ -44,9 +44,12 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run: mkdir -p ./tmp/test-results
+      - run: mkdir -p ./test-results/jest
       - run: npm install jest --save-dev
+      - run: yarn add --dev jest-junit
       - run: npm test
+      - store_test_results:
+          path: test-results
   
   deploy-heroku:
     working_directory: ~/circleci-demo
