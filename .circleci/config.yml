@@ -68,7 +68,16 @@ jobs:
          app-name: moo-python-demo
          process-types: web
 
-  deploy-in-parallel:
+  deploy-aws:
+    working_directory: ~/circleci-demo
+    docker:
+      - image: cimg/base:2021.04
+    resource_class: small
+    steps:
+      - checkout
+      - run: echo "This is running in parallel with the deploy"
+  
+  deploy-gcp:
     working_directory: ~/circleci-demo
     docker:
       - image: cimg/base:2021.04
@@ -102,6 +111,18 @@ workflows:
            - test
 
       - deploy-heroku:
+          requires:
+            - build
+            - test
+            - hold
+      
+      - deploy-aws:
+          requires:
+            - build
+            - test
+            - hold
+      
+      - deploy-gcp:
           requires:
             - build
             - test
