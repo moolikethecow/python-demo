@@ -1,0 +1,7 @@
+.circleci/jimconfig.yml
+__pycache__/app.cpython-310.pyc
+node_modules/
+package-lock.json
+test-results/
+vamp/
+yarn.lock
