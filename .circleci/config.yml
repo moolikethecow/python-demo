@@ -101,6 +101,7 @@ jobs:
           name: Deploy to Homelab over SSH 
           command: |
             ssh -p $SSH_PORT -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "git -C /var/www/circleci/circlecinterview pull origin homelab-deploy"
+
 workflows:
   build-test-deploy:
     jobs:
