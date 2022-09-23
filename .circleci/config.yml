@@ -48,7 +48,7 @@ jobs:
       - run: mkdir -p ./test-results/jest
       - run: npm install jest --save-dev
       - run: yarn add --dev jest-junit
-      - run: npm test --verbose $(npm list ./... | circleci tests split --split-by=timings)
+      - run: npm test  | circleci tests split --split-by=timings
       - store_test_results:
           path: ./test-results
   
