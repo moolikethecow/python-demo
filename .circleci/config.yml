@@ -81,7 +81,7 @@ jobs:
       - run:
           name: Deploy to AWS EC2 over SSH 
           command: |
-            ssh -o StrictHostKeyChecking=no $AWS_SSH_USER@$AWS_SSH_HOST "docker container stop python-demo || docker container rm python-demo || sleep 3 || docker container prune -f && docker pull moolikethecow/python-demo:${VERSION} && docker run -d -p 8000:8000 --name python-demo moolikethecow/python-demo:${VERSION}"
+            ssh -o StrictHostKeyChecking=no $AWS_SSH_USER@$AWS_SSH_HOST "docker container stop python-demo || docker container rm python-demo && docker container prune -f && docker pull moolikethecow/python-demo:${VERSION} && docker run -d -p 8000:8000 --name python-demo moolikethecow/python-demo:${VERSION}"
   
   deploy-gcp:
     working_directory: ~/circleci-demo
