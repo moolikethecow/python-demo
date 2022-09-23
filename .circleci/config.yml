@@ -91,7 +91,7 @@ jobs:
     steps:
       - set-build-env
       - checkout
-      - run: sleep 50
+      - run: sleep 20
       - run: echo "This is running in parallel with the deploy"
   
   deploy-homelab:
