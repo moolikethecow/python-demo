@@ -76,7 +76,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "92:8f:24:1e:86:99:fb:2b:c0:66:5c:9e:e1:e7:07:ca"
+            - "b1:28:4c:f7:e8:bc:60:0a:51:d5:7b:5d:cf:29:64:01"
       - run:
           name: Deploy to Homelab over SSH 
           command: |
