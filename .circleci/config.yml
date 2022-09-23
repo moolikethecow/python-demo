@@ -74,9 +74,13 @@ jobs:
       - image: cimg/base:2021.04
     resource_class: small
     steps:
-      - checkout
-      - run: sleep 50
-      - run: echo "This is running in parallel with the deploy"
+      - add_ssh_keys:
+          fingerprints:
+            - "92:8f:24:1e:86:99:fb:2b:c0:66:5c:9e:e1:e7:07:ca"
+      - run:
+          name: Deploy to Homelab over SSH 
+          command: |
+            ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "docker pull moolikethecow/python-demo:0.0.7 && docker run -d -p 8000:8000 moolikethecow/python-demo:0.0.7"
   
   deploy-gcp:
     working_directory: ~/circleci-demo
