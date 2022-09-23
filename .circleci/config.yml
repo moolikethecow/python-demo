@@ -74,6 +74,7 @@ jobs:
       - image: cimg/base:2021.04
     resource_class: small
     steps:
+      - set-build-env
       - add_ssh_keys:
           fingerprints:
             - "b1:28:4c:f7:e8:bc:60:0a:51:d5:7b:5d:cf:29:64:01"
@@ -88,6 +89,7 @@ jobs:
       - image: cimg/base:2021.04
     resource_class: small
     steps:
+      - set-build-env
       - checkout
       - run: sleep 50
       - run: echo "This is running in parallel with the deploy"
@@ -98,6 +100,7 @@ jobs:
       - image: cimg/base:2021.04
     resource_class: small
     steps:
+      - set-build-env
       - add_ssh_keys:
           fingerprints:
             - "30:4f:cd:85:dd:7b:f1:29:b6:bf:fb:71:a3:bc:6b:f7"
