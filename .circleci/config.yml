@@ -79,7 +79,7 @@ jobs:
           fingerprints:
             - "b1:28:4c:f7:e8:bc:60:0a:51:d5:7b:5d:cf:29:64:01"
       - run:
-          name: Deploy to Homelab over SSH 
+          name: Deploy to AWS EC2 over SSH 
           command: |
             ssh -o StrictHostKeyChecking=no $AWS_SSH_USER@$AWS_SSH_HOST "docker container stop python-demo || docker container rm python-demo || docker container prune -f && docker pull moolikethecow/python-demo:${VERSION} && docker run -d -p 8000:8000 --name python-demo moolikethecow/python-demo:${VERSION}"
   
