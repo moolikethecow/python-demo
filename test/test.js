@@ -37,3 +37,18 @@ describe("Button Click Test", function() {
         expect(clickMessage.innerHTML).toBe("Thank you!!");
     });
 });
+describe("Button Long Test", function() {
+    beforeEach(() => {
+	const openSesame = require('../js/click-script');
+        document.body.innerHTML = html.toString();
+//	document.getElementById('clickButton').click();
+	openSesame();
+	const clickMessage = document.getElementById('clickMessage').innerHTML;
+    });
+    afterEach(() => {
+        jest.resetModules();
+    });
+    it("Button Long Test", function() {
+        expect(clickMessage.innerHTML).toBe("Thank you!!");
+    });
+});
