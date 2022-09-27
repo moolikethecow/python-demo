@@ -6,6 +6,23 @@ orbs:
   docker: circleci/docker@2.0.3
   heroku: circleci/heroku@1.2.6
 
+parameters:
+  deploy:
+    type: boolean
+    default: true
+  deploy_aws:
+    type: boolean
+    default: false
+  deploy_gcp:
+    type: boolean
+    default: false
+  deploy_homelab:
+    type: boolean
+    default: false
+  deploy_heroku:
+    type: boolean
+    default: false
+
 commands:
   set-build-env:
     description: "Set environment variables needed for building"
