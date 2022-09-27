@@ -144,9 +144,21 @@ workflows:
           requires: 
            - build
            - test
-      - deploy-aws
-      - deploy-heroku
-      - deploy-gcp
+      - deploy-aws:
+          requires: 
+           - build
+           - test
+           - hold
+      - deploy-heroku:
+          requires: 
+           - build
+           - test
+           - hold
+      - deploy-gcp:
+          requires: 
+           - build
+           - test
+           - hold
   build-test-aws:
     when: << pipeline.parameters.deploy_aws >>
     jobs:
@@ -157,7 +169,11 @@ workflows:
           requires: 
            - build
            - test
-      - deploy-aws
+      - deploy-aws:
+          requires: 
+           - build
+           - test
+           - hold
   build-test-heroku:
     when: << pipeline.parameters.deploy_heroku >>
     jobs:
@@ -168,7 +184,11 @@ workflows:
           requires: 
            - build
            - test
-      - deploy-heroku
+      - deploy-heroku:
+          requires: 
+           - build
+           - test
+           - hold
   build-test-gcp:
     when: << pipeline.parameters.deploy_gcp >>
     jobs:    
@@ -179,7 +199,11 @@ workflows:
           requires: 
            - build
            - test
-      - deploy-gcp
+      - deploy-gcp:
+          requires: 
+           - build
+           - test
+           - hold
   build-test-homelab:
     when: << pipeline.parameters.deploy_homelab >>
     jobs:
