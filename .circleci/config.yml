@@ -117,7 +117,7 @@ jobs:
             ssh -p $SSH_PORT -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "git -C /var/www/circleci/circlecinterview pull origin homelab-deploy"
 
 workflows:
-  build-test-deploy:
+  build-test:
     jobs:
       - build
       - test
@@ -126,25 +126,32 @@ workflows:
           requires: 
            - build
            - test
-
+  deploy-heroku:
+    when: << pipeline.parameters.deploy_heroku >>
+    jobs:
       - deploy-heroku:
           requires:
             - build
             - test
             - hold
-      
+  deploy-aws:
+    jobs:    
       - deploy-aws:
           requires:
             - build
             - test
             - hold
-      
+  deploy-gcp:
+    when: << pipeline.parameters.deploy_gcp >>
+    jobs:    
       - deploy-gcp:
           requires:
             - build
             - test
             - hold
- 
+  deploy-homelab:
+    when: << pipeline.parameters.deploy_homelab >>
+    jobs:
       - deploy-homelab:
           requires:
             - build
