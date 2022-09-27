@@ -9,10 +9,10 @@ orbs:
 parameters:
   deploy:
     type: boolean
-    default: true
+    default: false
   deploy_aws:
     type: boolean
-    default: false
+    default: true
   deploy_gcp:
     type: boolean
     default: false
@@ -159,6 +159,7 @@ workflows:
            - build
            - test
            - hold
+  
   build-test-aws:
     when: << pipeline.parameters.deploy_aws >>
     jobs:
@@ -174,6 +175,7 @@ workflows:
            - build
            - test
            - hold
+  
   build-test-heroku:
     when: << pipeline.parameters.deploy_heroku >>
     jobs:
@@ -189,6 +191,7 @@ workflows:
            - build
            - test
            - hold
+  
   build-test-gcp:
     when: << pipeline.parameters.deploy_gcp >>
     jobs:    
@@ -204,6 +207,7 @@ workflows:
            - build
            - test
            - hold
+  
   build-test-homelab:
     when: << pipeline.parameters.deploy_homelab >>
     jobs:
