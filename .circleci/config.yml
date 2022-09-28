@@ -9,10 +9,10 @@ orbs:
 parameters:
   deploy:
     type: boolean
-    default: false
+    default: true
   deploy_aws:
     type: boolean
-    default: true
+    default: false
   deploy_gcp:
     type: boolean
     default: false
