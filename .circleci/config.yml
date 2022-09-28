@@ -10,6 +10,9 @@ parameters:
   deploy:
     type: boolean
     default: true
+  deploy_hold:
+    type: boolean
+    default: false
   deploy_aws:
     type: boolean
     default: false
