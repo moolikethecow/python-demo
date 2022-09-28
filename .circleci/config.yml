@@ -138,8 +138,18 @@ workflows:
     when: << pipeline.parameters.deploy >>
     jobs:
       - build
+      - hold:
+          type: approval
+          requires:
+            - build 
       - test
       - hold:
+          name: testhold
+          type: approval
+          requires: 
+           - test
+      - hold:
+          name: holdhold
           type: approval
           requires: 
            - build
@@ -148,12 +158,12 @@ workflows:
           requires: 
            - build
            - test
-           - hold
+           - testhold
       - deploy-heroku:
           requires: 
            - build
            - test
-           - hold
+           - holdhold
       - deploy-gcp:
           requires: 
            - build
@@ -212,15 +222,7 @@ workflows:
     when: << pipeline.parameters.deploy_homelab >>
     jobs:
       - build
-      - hold:
-          type: approval
-          requires: 
-           - build
       - test
-      - hold:
-          type: approval
-          requires: 
-           - test
       - hold:
           type: approval
           requires: 
