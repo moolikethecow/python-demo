@@ -212,7 +212,15 @@ workflows:
     when: << pipeline.parameters.deploy_homelab >>
     jobs:
       - build
+      - hold:
+          type: approval
+          requires: 
+           - build
       - test
+      - hold:
+          type: approval
+          requires: 
+           - test
       - hold:
           type: approval
           requires: 
