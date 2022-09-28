@@ -19,6 +19,6 @@ describe("Button Long Test", function() {
         jest.resetModules();
     });
     it("Button Long Test", function() {
-        expect(clickMessage.innerHTML).toBe("Thank you!!");
+        expect(clickMessage.innerHTML).toBe("Thank you!");
     });
 });
