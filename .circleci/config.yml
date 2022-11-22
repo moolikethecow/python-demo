@@ -1,10 +1,10 @@
 version: 2.1
 
 orbs: 
-  python: circleci/python@2.0.3
-  snyk: snyk/snyk@1.1.2
+  python: circleci/python@2.1.1
+  snyk: snyk/snyk@1.4.0
   docker: circleci/docker@2.1.4
-  heroku: circleci/heroku@1.2.6
+  heroku: circleci/heroku@2.0.0
 
 parameters:
   deploy:
