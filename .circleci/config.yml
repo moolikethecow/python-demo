@@ -50,8 +50,8 @@ jobs:
           tag: ${VERSION}
           lint-dockerfile: true
           treat-warnings-as-errors: true
-      #- snyk/scan:
-      #    docker-image-name: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:${VERSION}
+      - snyk/scan:
+          docker-image-name: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:${VERSION}
       - docker/push:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
           tag: ${VERSION}
