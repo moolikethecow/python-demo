@@ -2,71 +2,79 @@
 <html>
     <head>
         <script src="{{ url_for('static', filename='click-script.js') }}"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+        <style>
+            /* Add a modern font for headings and body text */
+            body {
+                font-family: 'Roboto', sans-serif;
+            }
+
+            /* Add some white space to your layout to help break up the content and make it easier to read */
+            .logo {
+                margin: 0;
+                position: absolute;
+                top: 30%;
+                left: 50%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+            }
+            .name {
+                font-size: 30px;
+                margin: 0;
+                position: absolute;
+                top: 45%;
+                left: 50%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                /* Add some padding to give the text some breathing room */
+                padding: 0 20px;
+            }
+            .clickbutton {
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                /* Add some padding to give the button some breathing room */
+                padding: 20px;
+            }
+            .message {
+                font-size: 20px;
+                margin: 0;
+                position: absolute;
+                top: 53%;
+                left: 50%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                /* Add some padding to give the text some breathing room */
+                padding: 0 20px;
+            }
+            .trademark {
+                font-size: 10px;
+                margin: 0;
+                position: absolute;
+                top: 95%;
+                left: 81%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+            }
+        </style>
     </head>
     <title>CircleCI Demo</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/ico"/>
-    <style>
-        .clickbutton {
-            margin: 0;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-        }
-        .logo {
-            margin: 0;
-            position: absolute;
-            top: 30%;
-            left: 50%;
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-        }
-        .message {
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-            position: absolute;
-            top: 53%;
-            left: 50%;
-            font-size: 20px;
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-        }
-        .name {
-            font-size: 30px;
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-        }
-        .trademark {
-            font-size: 10px;
-            margin: 0;
-            position: absolute;
-            top: 95%;
-            left: 81%;
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-        }
-    </style>
-    <body style="background-color: rgb(45, 84, 225);">
+    <body style="background-color: rgb(255, 255, 255);">
+        <!-- Add a navigation menu to help visitors easily find different pages on your site -->
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+
         <div class="logo">
             <img src="{{ url_for('static', filename='circlecilogo.png') }}" alt="CircleCI Logo">    
         </div>
         <div class="name">
-            <p>CircleCI Demo - Moo Olaniyan</p>
-        </div>
-        <div class="clickbutton">
-            <button id="clickButton" type="button">Click Here!</button>
-        </div>
-        <div class="message">
-            <p id="clickMessage"></p>
-        </div>
-        <div class="trademark">
-            <p>CircleCI&trade; Logo is a trademark or registered trademark of Circle Internet Services, Inc.</p>
-        </div>
-    </body>
-</html>
+            <p>CircleCI Demo -
