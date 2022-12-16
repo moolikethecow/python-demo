@@ -152,11 +152,6 @@ workflows:
            - build
            - test
            - deploy-hold
-      - deploy-heroku:
-          requires: 
-           - build
-           - test
-           - deploy-hold
       - deploy-gcp:
           requires: 
            - build
