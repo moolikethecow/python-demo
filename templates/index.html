@@ -5,17 +5,18 @@
   <script src="{{ url_for('static', filename='click-script.js') }}"></script>
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/ico"/>
   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+  <!--  background-color: #f2f2f2; -->
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      background-color: #f2f2f2;
+      background-color: #4CAF50;
       margin: 0;
       padding: 0;
     }
 
     img {
-      width: 200px;
+      width: 500px;
     }
 
     button {
@@ -80,11 +81,11 @@
 </head>
 <body>
   <div class="container">
+    <img src="{{ url_for('static', filename='circlecilogo.png') }}" alt="CircleCI Logo"> 
     <h1>CircleCI Demo</h1>
     <p>
       In this demo, we will show you how easy it is to use CircleCI to automate your software development workflow.
     </p>
-    <img src="{{ url_for('static', filename='circlecilogo.png') }}" alt="CircleCI Logo"> 
     <br>
     <button id="clickButton" type="button">Click Here!</button>
     <br>
