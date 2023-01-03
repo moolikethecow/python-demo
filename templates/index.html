@@ -1,92 +1,106 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script src="{{ url_for('static', filename='click-script.js') }}"></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-        <style>
-            /* Add a modern font for headings and body text */
-            body {
-                font-family: 'Roboto', sans-serif;
-            }
+<head>
+  <title>CircleCI Demo</title>
+  <script src="{{ url_for('static', filename='click-script.js') }}"></script>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/ico"/>
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+  <!--  background-color: #f2f2f2; -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #4CAF50;
+      margin: 0;
+      padding: 0;
+    }
 
-            /* Add some white space to your layout to help break up the content and make it easier to read */
-            .logo {
-                margin: 0;
-                position: absolute;
-                top: 30%;
-                left: 50%;
-                -ms-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-            }
-            .name {
-                font-size: 30px;
-                margin: 0;
-                position: absolute;
-                top: 45%;
-                left: 50%;
-                -ms-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-                /* Add some padding to give the text some breathing room */
-                padding: 0 20px;
-            }
-            .clickbutton {
-                margin: 0;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                -ms-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-                /* Add some padding to give the button some breathing room */
-                padding: 20px;
-            }
-            .message {
-                font-size: 20px;
-                margin: 0;
-                position: absolute;
-                top: 53%;
-                left: 50%;
-                -ms-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-                /* Add some padding to give the text some breathing room */
-                padding: 0 20px;
-            }
-            .trademark {
-                font-size: 10px;
-                margin: 0;
-                position: absolute;
-                top: 95%;
-                left: 81%;
-                -ms-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-            }
-        </style>
-    </head>
-    <title>CircleCI Demo</title>
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/ico"/>
-    <body style="background-color: rgb(255, 255, 255);">
-        <!-- Add a navigation menu to help visitors easily find different pages on your site -->
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
+    img {
+      width: 500px;
+    }
 
-        <div class="logo">
-            <img src="{{ url_for('static', filename='circlecilogo.png') }}" alt="CircleCI Logo">    
-        </div>
-        <div class="name">
-            <p>CircleCI Demo - Moo Olaniyan</p>
-        </div>
-        <div class="clickbutton">
-            <button id="clickButton" type="button">Click Here!</button>
-        </div>
-        <div class="message">
-            <p id="clickMessage"></p>
-        </div>
-        <div class="trademark">
-            <p>CircleCI&trade; Logo is a trademark or registered trademark of Circle Internet Services, Inc.</p>
-        </div>
-    </body>
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+
+    .trademark {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      font-size: 12px;
+      color: rgb(99, 99, 99);
+      text-align: right;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    h1 {
+      font-size: 36px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.5;
+      margin: 20px 0;
+    }
+
+    /* Mobile styles */
+    @media only screen and (max-width: 600px) {
+      .container {
+        width: 90%;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="{{ url_for('static', filename='circlecilogo.png') }}" alt="CircleCI Logo"> 
+    <h1>CircleCI x Fortis Demo</h1>
+    <p>
+      In this demo, we will show you how easy it is to use CircleCI to automate your software development workflow.
+    </p>
+    <br>
+    <button id="clickButton" type="button">Click Here!</button>
+    <br>
+    <p id="clickMessage"></p>
+    <br>
+    <h2>What is CircleCI?</h2>
+    <p>
+      CircleCI is a continuous integration and delivery platform that helps software teams ship code faster. It automates the build, test, and deployment process, allowing teams to focus on writing code and delivering value to customers.
+    </p>
+    <p>
+      With CircleCI, you can easily set up automated workflows for building, testing, and deploying your code. This helps you catch bugs and issues early in the development process, and ensures that your code is always ready for deployment.
+    </p>
+  </div>
+  <div class="trademark">
+    CircleCI&trade; Logo is a trademark or registered trademark of Circle Internet Services, Inc.
+  </div>
+</body>
 </html>
